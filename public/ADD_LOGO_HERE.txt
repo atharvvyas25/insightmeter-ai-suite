@@ -1,0 +1,13 @@
+IMPORTANT: Add Your Logo Here
+
+Please save your InsightMeter logo image as:
+public/logo.png
+
+The logo should be:
+- PNG format with transparent background
+- Recommended size: 200x200px or similar
+- Will be displayed at 40px height (auto width)
+
+The app is already configured to use this logo in the sidebar.
+
+If the logo file is not found, it will fallback to the emoji icon (🤖).

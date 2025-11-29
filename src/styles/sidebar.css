@@ -1,0 +1,345 @@
+/* Sidebar - Clean Modern Dark Theme with Perfect Responsiveness */
+
+/* Base Sidebar Styles */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 70px;
+  width: 280px;
+  height: calc(100vh - 70px);
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(59, 130, 246, 0.1);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Desktop: Collapsed State (80px width) */
+.sidebar.closed {
+  width: 80px;
+}
+
+/* Hide text elements when collapsed on desktop */
+.sidebar.closed .logo-text,
+.sidebar.closed .nav-label,
+.sidebar.closed .user-details {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.sidebar.closed .logo-image {
+  height: 35px;
+}
+
+.sidebar.closed .nav-item {
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3));
+  transition: height 0.3s ease;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.3));
+}
+
+.logo-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+  transition: opacity 0.3s ease, width 0.3s ease;
+}
+
+/* Navigation */
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  margin: 0.25rem 0.75rem;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: calc(100% - 1.5rem);
+  text-align: left;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--primary);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.nav-item:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--primary);
+  transform: translateX(5px);
+}
+
+.nav-item:hover::before {
+  transform: scaleY(1);
+}
+
+.nav-item.active {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--primary);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.nav-item.active::before {
+  transform: scaleY(1);
+}
+
+.nav-icon {
+  font-size: 1.5rem;
+  min-width: 1.5rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.nav-item:hover .nav-icon {
+  transform: scale(1.1);
+}
+
+.nav-label {
+  white-space: nowrap;
+  transition: opacity 0.3s ease, width 0.3s ease;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  flex-shrink: 0;
+}
+
+.user-details {
+  flex: 1;
+  transition: opacity 0.3s ease, width 0.3s ease;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.user-plan {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ========================================
+   MOBILE RESPONSIVE STYLES
+   ======================================== */
+
+/* Tablet and Below - Overlay Sidebar */
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 240px;
+    z-index: 1001;
+    visibility: hidden;
+  }
+  
+  /* Mobile: Open State - ONLY accessible via hamburger */
+  .sidebar.open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto; /* Enable interactions when open */
+  }
+  
+  /* Mobile: Closed State - Completely hidden */
+  .sidebar.closed {
+    transform: translateX(-100%);
+    width: 240px;
+    visibility: hidden;
+    pointer-events: none; /* Disable all interactions when closed */
+  }
+  
+  /* Show ALL labels on mobile when open */
+  .sidebar.open .nav-label,
+  .sidebar.open .logo-text,
+  .sidebar.open .user-details {
+    opacity: 1 !important;
+    width: auto !important;
+    overflow: visible !important;
+  }
+  
+  /* Reset collapsed styles on mobile */
+  .sidebar.closed .nav-item {
+    justify-content: flex-start;
+    padding: 1rem 1.5rem;
+  }
+  
+  /* Ensure labels are visible when sidebar is open on mobile */
+  .sidebar.open .logo-text,
+  .sidebar.open .nav-label,
+  .sidebar.open .user-details {
+    display: block;
+  }
+}
+
+/* Mobile Specific */
+@media (max-width: 768px) {
+  .sidebar {
+    top: 60px;
+    height: calc(100vh - 60px);
+    width: 220px;
+  }
+  
+  .sidebar.closed {
+    width: 220px;
+  }
+  
+  .sidebar-header {
+    padding: 1.25rem 0.85rem;
+  }
+  
+  .nav-item {
+    padding: 0.75rem 1rem;
+    margin: 0.2rem 0.5rem;
+    width: calc(100% - 1rem);
+    font-size: 0.9rem;
+  }
+  
+  .sidebar-footer {
+    padding: 1rem 0.85rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 200px;
+  }
+  
+  .sidebar.closed {
+    width: 200px;
+  }
+  
+  .sidebar-header {
+    padding: 1rem 0.75rem;
+  }
+  
+  .logo-image {
+    height: 60px;
+  }
+  
+  .logo-text {
+    font-size: 1rem;
+  }
+  
+  .nav-item {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.85rem;
+  }
+  
+  .nav-icon {
+    font-size: 1.3rem;
+  }
+  
+  .sidebar-footer {
+    padding: 0.85rem 0.75rem;
+  }
+  
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .user-name {
+    font-size: 0.85rem;
+  }
+  
+  .user-plan {
+    font-size: 0.75rem;
+  }
+}
+
+/* Scrollbar Styling */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}

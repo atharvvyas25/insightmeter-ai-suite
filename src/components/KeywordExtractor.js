@@ -1,0 +1,71 @@
+import React, { useState } from 'react';
+import { extractKeywords } from '../api';
+import ToolLayout from './ToolLayout';
+
+function KeywordExtractor() {
+  const [text, setText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [keywords, setKeywords] = useState(null);
+  const [error, setError] = useState('');
+
+  const handleExtract = async () => {
+    if (!text.trim()) {
+      setError('Please enter some text');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    
+    try {
+      const data = await extractKeywords(text);
+      setKeywords(data.keywords);
+    } catch (err) {
+      setError(err.message || 'Failed to extract. Check your API key.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <ToolLayout
+      title="Keyword Extractor"
+      description="Extract important keywords from any text"
+    >
+      <div className="tool-grid">
+        <div className="input-panel glass">
+          <textarea
+            className="tool-textarea"
+            placeholder="Paste text to extract keywords..."
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={12}
+          />
+          <button 
+            className="btn btn-primary btn-large"
+            onClick={handleExtract}
+            disabled={loading}
+          >
+            {loading ? '⏳ Extracting...' : '🔑 Extract Keywords'}
+          </button>
+          {error && <div className="error-message">{error}</div>}
+        </div>
+
+        {keywords && (
+          <div className="results-panel">
+            <h3 className="panel-title">Extracted Keywords</h3>
+            <div className="keywords-grid glass">
+              {keywords.map((kw, i) => (
+                <div key={i} className="keyword-chip-large">
+                  {kw}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </ToolLayout>
+  );
+}
+
+export default KeywordExtractor;
