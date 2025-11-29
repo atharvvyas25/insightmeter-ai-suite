@@ -23,6 +23,7 @@ function GrammarFixer() {
       setResult(data);
     } catch (err) {
       setError(err.message || 'Failed to fix grammar. Check your API key.');
+      console.error('Grammar fix error:', err);
     } finally {
       setLoading(false);
     }

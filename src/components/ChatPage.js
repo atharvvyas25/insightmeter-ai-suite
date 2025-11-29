@@ -119,10 +119,22 @@ function ChatPage() {
   };
 
   const callAIChat = async (conversationHistory) => {
-    // Use the existing callAI function but adapted for chat
+    // Use the centralized callAI function from api.js
+    const systemMessage = {
+      role: 'system',
+      content: 'You are InsightMeter AI, a helpful and friendly AI assistant. Provide clear, concise, and helpful responses.'
+    };
+    
+    const messagesWithSystem = [systemMessage, ...conversationHistory];
+    
+    // Call the API using the imported callAI function
     const API_KEY = process.env.REACT_APP_API_KEY;
     const API_URL = "https://api.groq.com/openai/v1/chat/completions";
     const MODEL = "llama-3.3-70b-versatile";
+
+    if (!API_KEY) {
+      throw new Error('API key is missing. Please add REACT_APP_API_KEY to your .env file');
+    }
 
     const response = await fetch(API_URL, {
       method: 'POST',
@@ -132,19 +144,15 @@ function ChatPage() {
       },
       body: JSON.stringify({
         model: MODEL,
-        messages: [
-          {
-            role: 'system',
-            content: 'You are InsightMeter AI, a helpful and friendly AI assistant. Provide clear, concise, and helpful responses.'
-          },
-          ...conversationHistory
-        ],
-        temperature: 0.7
+        messages: messagesWithSystem,
+        temperature: 0.7,
+        max_tokens: 2000
       })
     });
 
     if (!response.ok) {
-      throw new Error('AI request failed');
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error?.message || `API Error: ${response.status}`);
     }
 
     const data = await response.json();

@@ -19,10 +19,11 @@ function RewriteTool() {
     setError('');
     
     try {
-      const data = await rewriteText(text);
-      setResult(data.rewrittenText);
+      const rewrittenText = await rewriteText(text);
+      setResult(rewrittenText);
     } catch (err) {
       setError(err.message || 'Failed to rewrite. Check your API key.');
+      console.error('Rewrite error:', err);
     } finally {
       setLoading(false);
     }

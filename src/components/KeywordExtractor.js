@@ -19,9 +19,21 @@ function KeywordExtractor() {
     
     try {
       const data = await extractKeywords(text);
-      setKeywords(data.keywords);
+      // Handle both array and object responses
+      if (Array.isArray(data.keywords)) {
+        // If keywords is array of objects with 'word' property
+        if (data.keywords[0]?.word) {
+          setKeywords(data.keywords.map(kw => kw.word));
+        } else {
+          // If keywords is already array of strings
+          setKeywords(data.keywords);
+        }
+      } else {
+        setError('Invalid response format');
+      }
     } catch (err) {
       setError(err.message || 'Failed to extract. Check your API key.');
+      console.error('Keyword extraction error:', err);
     } finally {
       setLoading(false);
     }

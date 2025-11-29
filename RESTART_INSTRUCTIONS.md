@@ -52,7 +52,7 @@ After restarting, open browser console (F12) and you should see:
 ```
 🚀 Calling Groq API...
 🔑 API Key present: true
-🔑 API Key starts with: gsk_FeDusZ
+🔑 API Key starts with: gsk_xxxxx
 ```
 
 If you see:
@@ -88,14 +88,14 @@ Then the `.env` file is not being read.
 
 4. **No quotes**: Don't use quotes
    ```
-   ✅ REACT_APP_API_KEY=gsk_abc123
-   ❌ REACT_APP_API_KEY="gsk_abc123"
+   ✅ REACT_APP_API_KEY=your_api_key
+   ❌ REACT_APP_API_KEY="your_api_key"
    ```
 
 5. **No spaces**: No spaces around `=`
    ```
-   ✅ REACT_APP_API_KEY=gsk_abc123
-   ❌ REACT_APP_API_KEY = gsk_abc123
+   ✅ REACT_APP_API_KEY=your_api_key
+   ❌ REACT_APP_API_KEY = your_api_key
    ```
 
 ---
@@ -141,7 +141,7 @@ You should see in console:
 ```
 🚀 Calling Groq API...
 🔑 API Key present: true
-🔑 API Key starts with: gsk_FeDusZ
+🔑 API Key starts with: gsk_xxxxx
 📡 Response status: 200
 ✅ Got response from Groq
 ✅ Successfully parsed JSON

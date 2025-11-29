@@ -103,7 +103,7 @@ Press **F12** to open Developer Tools and see:
 ```
 🚀 Calling Groq API...
 🔑 API Key present: true
-🔑 API Key starts with: gsk_FeDusZ
+🔑 API Key starts with: gsk_xxxxx
 📡 Response status: 200
 ✅ Got response from Groq
 💬 AI Response: {...}
